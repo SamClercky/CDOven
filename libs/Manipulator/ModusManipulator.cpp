@@ -19,13 +19,14 @@ ModusManipulator::~ModusManipulator() {
 	// TODO Auto-generated destructor stub
 }
 
-void ModusManipulator::printNewModus(Utils::Modus modus) {
+void ModusManipulator::printNewModus(Utils::Modus modus, int masterPin) {
+	disableMasterPinSafeMode(masterPin);
 	lcd->writeToScreen(Utils::ModusHelper::getString(modus), 0);
 	rc->writeToScreen(static_cast<uint8_t>(Utils::ModusHelper::getByte(modus)));
 }
 
-void ModusManipulator::printFromInt(int data) {
-	printNewModus(static_cast<Utils::Modus>(data));
+void ModusManipulator::printFromInt(int data, int masterPin) {
+	printNewModus(static_cast<Utils::Modus>(data), masterPin);
 }
 
 } /* namespace Manipulator */

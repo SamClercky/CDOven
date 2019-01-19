@@ -1,8 +1,8 @@
 #ifndef LIBS_MANIPULATOR_TEMPERATUREMANIPULATOR_H_
 #define LIBS_MANIPULATOR_TEMPERATUREMANIPULATOR_H_
 
-#include "../Display/RelaisControl.h"
 #include "../Utils/modus.h"
+#include "../Display/lcd.h"
 #include "Arduino.h"
 
 namespace Manipulator {
@@ -21,6 +21,10 @@ public:
 		pinMode(masterPin, OUTPUT);
 	}
 
+	void setSelectedTemp(uint8_t selectedPin) {
+		selectedTemp = selectedPin;
+}
+
 //	void setNewModus(Utils::Modus modus) {
 //		if (modus != this->modus) {
 //			this->modus = modus;
@@ -33,6 +37,7 @@ private:
 //Display::RelaisControl* rc;
 //Utils::Modus modus;
 	uint8_t masterPin;
+uint8_t selectedTemp = 0;
 }
 ;
 

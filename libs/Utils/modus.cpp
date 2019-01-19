@@ -32,6 +32,6 @@ char ModusHelper::getByte(Modus modus) {
 		}
 	}
 	 return ~(byteModi[modiAnalogLength - 1]);*/
-	return (byteModi[static_cast<int>(modus)]);
+	return ~(byteModi[static_cast<int>(modus)]);
 }
 }

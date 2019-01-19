@@ -5,7 +5,13 @@
 namespace Manipulator {
 
 void TemperatureManipulator::setTemperatureOn(int temp) {
-	if (temp >= 26) {
+	// wait for 2s
+	if (2000 > millis()) {
+		digitalWrite(masterPin, LOW);
+		return;
+	}
+
+	if (temp >= selectedTemp) {
 		digitalWrite(masterPin, LOW);
 	} else {
 		digitalWrite(masterPin, HIGH);

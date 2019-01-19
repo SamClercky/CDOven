@@ -1,21 +1,20 @@
-#include "ModusController.h"
-#include "../Utils/modus.h"
+#include "TemperatureController.h"
 
 namespace Input {
 
-void ModusController::init() {
-	encoder->begin(
-			(INTE_ENABLE | LEDE_ENABLE | WRAP_DISABLE | DIRE_RIGHT | IPUP_ENABLE
-					| RMOD_X1));
+namespace Input {
+
+void TemperatureController::init() {
+	encoder->begin((INTE_ENABLE | LEDE_ENABLE | WRAP_DISABLE | DIRE_RIGHT | IPUP_ENABLE | RMOD_X1));
 	encoder->writeCounter(0);
-	encoder->writeMax((modiAnalogLength - 1) * 4); // Set maximum threshold
+	encoder->writeMax(25); // Set maximum threshold + temperature * 10
 	encoder->writeMin(0); // Set minimum threshold
 	encoder->writeLEDA(0x00);
 	encoder->writeLEDB(0x00);
 	encoder->updateStatus();
 }
 
-void ModusController::printRawByte() {
+void TemperatureController::printRawByte() {
 	if (encoder->updateStatus()) {
 		if (encoder->readStatus(E_PUSH)) {
 			Serial.println("Encoder Pushed!");
@@ -26,7 +25,7 @@ void ModusController::printRawByte() {
 		if (encoder->readStatus(E_MINVALUE)) {
 			Serial.println("Encoder Min!");
 		}
-		counter = encoder->readCounterByte() / 5; //Read only the first byte of the counter register
+		counter = encoder->readCounterByte(); //Read only the first byte of the counter register
 		Serial.print("Encoder: ");
 		Serial.println(counter, DEC);
 		// reset for nex time
@@ -35,20 +34,20 @@ void ModusController::printRawByte() {
 	}
 }
 
-int8_t ModusController::readData() {
+int8_t TemperatureController::readData() {
 	if (encoder->updateStatus()) {
 		if (encoder->readStatus(E_PUSH)) {
 			Serial.println("Encoder Pushed!");
 		}
 		if (encoder->readStatus(E_MAXVALUE)) {
 			Serial.println("Encoder Max!");
-			delay(50);
 		}
 		if (encoder->readStatus(E_MINVALUE)) {
 			Serial.println("Encoder Min!");
-			delay(50);
 		}
-		counter = static_cast<int>(encoder->readCounterByte() / 4);
+		counter = static_cast<int>(encoder->readCounterByte());
+		encoder->writeLEDA(0x00);
+		encoder->writeLEDB(0x00);
 		return counter; //Read only the first byte of the counter register
 
 #ifdef DEBUG
@@ -56,9 +55,10 @@ int8_t ModusController::readData() {
 		Serial.println(counter, DEC);
 #endif
 	}
-	encoder->writeLEDA(0x00);
-	encoder->writeLEDB(0x00);
 	return counter;
 }
 
 }
+
+
+} /* namespace Input */

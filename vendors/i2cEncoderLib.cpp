@@ -126,7 +126,7 @@ uint8_t i2cEncoderLib::readEncoderByte(uint8_t reg) {
   Wire.beginTransmission(_add);
   Wire.write(reg);
   Wire.endTransmission();
-  Wire.requestFrom(_add, 1);
+	Wire.requestFrom(_add, 1); // @suppress("Ambiguous problem")
   if (Wire.available()) {
     rdata = Wire.read();
   }
