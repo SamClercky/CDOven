@@ -7,7 +7,7 @@
 
 #include "Temperature.h"
 #include <Arduino.h>
-#include "../Display/IDisplay.h"
+#include "../Display/SevenSegmend.h"
 
 namespace Input {
 
@@ -65,7 +65,7 @@ int Temperature::readData() {
 }
 
 // TODO: will be subject for change
-void Temperature::writeTemperatureToScreen(Display::IDisplay& lcd) {
+void Temperature::writeTemperatureToScreen(Display::SevenSegmend& lcd) {
 	lcd.writeToScreen(readData(), 1);
 }
 

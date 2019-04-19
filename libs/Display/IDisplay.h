@@ -14,7 +14,7 @@ namespace Display {
 class IDisplay { // @suppress("Class has a virtual method and non-virtual destructor")
 public:
 	// Call this to write to screen
-	virtual void writeToScreen(float x, int line = 0) = 0;
+//	virtual void writeToScreen(float x, int line = 0) = 0;
 	virtual void writeToScreen(String x, int line = 0) = 0;
 	// should be called during loop()
 	virtual void refreshScreen() = 0;

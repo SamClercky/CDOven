@@ -2,13 +2,11 @@
 #include <WString.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "LedControl.h"
 #include <Arduino.h>
 
 namespace Display {
 LCD::~LCD() {
 	delete display;
-	delete lc;
 }
 
 void LCD::writeToScreen(float x, int line) {
@@ -36,10 +34,6 @@ void LCD::refreshScreen() {
 	display->display();
 }
 void LCD::initDisplay() {
-	lc->shutdown(0, false);
-	lc->setIntensity(0, 6);
-	lc->clearDisplay(0);
-
 	display->begin(SSD1306_SWITCHCAPVCC, 0x3C); // initialize with the I2C addr 0x3C (for the 128x32)
 	display->drawPixel(10, 10, WHITE);
 	display->display();

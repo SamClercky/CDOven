@@ -3,6 +3,7 @@
 
 #include "../Utils/modus.h"
 #include "../Display/lcd.h"
+#include "../Display/TempWrite.h"
 #include "Arduino.h"
 
 namespace Manipulator {
@@ -12,18 +13,17 @@ namespace Manipulator {
  */
 class TemperatureManipulator {
 public:
-	TemperatureManipulator(uint8_t masterpin) :
-			masterPin(masterpin)
+	TemperatureManipulator(Display::TempWrite* tw) :
 //			rc(rc)
-	{
-	}
-	void init() {
-		pinMode(masterPin, OUTPUT);
+			_tw(tw) {
 	}
 
-	void setSelectedTemp(uint8_t selectedPin) {
-		selectedTemp = selectedPin;
-}
+	void setSelectedTemp(unsigned int newTemp) {
+		if (selectedTemp != newTemp && newTemp < 400) { // check of er een nieuwe update nodig is van de data en ga nooit over 400 graden C
+			selectedTemp = newTemp;
+			resetDtCycle(); // reset DtCycle
+		}
+	}
 
 //	void setNewModus(Utils::Modus modus) {
 //		if (modus != this->modus) {
@@ -33,11 +33,20 @@ public:
 
 	void setTemperatureOn(int temp);
 
+	void resetDtCycle() {
+		currDtCycle = 0;
+		activeDtCycle = 100;
+	}
+
 private:
 //Display::RelaisControl* rc;
 //Utils::Modus modus;
-	uint8_t masterPin;
-uint8_t selectedTemp = 0;
+//	uint8_t masterPin;
+	unsigned int selectedTemp = 0;
+	Display::TempWrite* _tw;
+	int currDtCycle = 0; // huidige voortgang in dtcycle
+	int activeDtCycle = 100;
+//	int activeDtCycle = 100; // % warmend
 }
 ;
 

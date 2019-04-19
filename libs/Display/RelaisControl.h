@@ -41,10 +41,19 @@ public:
 #endif
 	}
 
+	bool hasPermissionToHeat();
+
 	virtual ~RelaisControl();
 
 private:
+	void disableMasterPinSafeMode(int masterPin = -1) {
+		if (masterPin != -1) {
+			digitalWrite(masterPin, LOW);
+		}
+	}
+
 	uint8_t relayStates = 0;
+	unsigned long timeToWrite = 1; // de eerste keer moet er worden gescheven naar de solid state
 	PCF8574 pcf_a0;
 };
 

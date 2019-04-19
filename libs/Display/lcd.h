@@ -4,7 +4,6 @@
 #include <WString.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "LedControl.h"
 #include "IDisplay.h"
 
 // control includes
@@ -21,8 +20,7 @@ constexpr int lineHeight = 18;
 class LCD: public IDisplay {
 public:
 	LCD() :
-			display(new Adafruit_SSD1306(OLED_RESET)), lc(
-					new LedControl(9, 8, 4, 1)) {
+			display(new Adafruit_SSD1306(OLED_RESET)) {
 	}
 	;
 	// Call this to write to screen
@@ -37,7 +35,6 @@ public:
 private:
 	String data[2] = { "", "" };
 	Adafruit_SSD1306 *display;
-	LedControl *lc;
 };
 }
 

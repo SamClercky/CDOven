@@ -20,7 +20,7 @@ ModusManipulator::~ModusManipulator() {
 }
 
 void ModusManipulator::printNewModus(Utils::Modus modus, int masterPin) {
-	disableMasterPinSafeMode(masterPin);
+//	disableMasterPinSafeMode(masterPin);
 	lcd->writeToScreen(Utils::ModusHelper::getString(modus), 0);
 	rc->writeToScreen(static_cast<uint8_t>(Utils::ModusHelper::getByte(modus)));
 }

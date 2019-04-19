@@ -7,7 +7,7 @@ namespace Input {
 void TemperatureController::init() {
 	encoder->begin((INTE_ENABLE | LEDE_ENABLE | WRAP_DISABLE | DIRE_RIGHT | IPUP_ENABLE | RMOD_X1));
 	encoder->writeCounter(0);
-	encoder->writeMax(25); // Set maximum threshold + temperature * 10
+	encoder->writeMax(50); // Set maximum threshold + temperature * 10
 	encoder->writeMin(0); // Set minimum threshold
 	encoder->writeLEDA(0x00);
 	encoder->writeLEDB(0x00);

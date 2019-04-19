@@ -22,11 +22,11 @@ public:
 
 	void printNewModus(Utils::Modus modus, int masterPin = -1);
 	void printFromInt(int data, int masterPin = -1);
-	void disableMasterPinSafeMode(int masterPin = -1) {
-		if (masterPin != -1) {
-			digitalWrite(masterPin, LOW);
-		}
-	}
+//	void disableMasterPinSafeMode(int masterPin = -1) {
+//		if (masterPin != -1) {
+//			digitalWrite(masterPin, LOW);
+//		}
+//	}
 
 private:
 	Display::LCD* lcd;

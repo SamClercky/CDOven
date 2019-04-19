@@ -8,7 +8,7 @@
 #ifndef LIBS_TEMPERATURE_H_
 #define LIBS_TEMPERATURE_H_
 
-#include "../Display/IDisplay.h"
+#include "../Display/SevenSegmend.h"
 #include "IInput.h"
 
 namespace Input {
@@ -18,7 +18,7 @@ public:
 	void init();
 	// if return -1 => no value read
 	int readData();
-	void writeTemperatureToScreen(Display::IDisplay& lcd);
+	void writeTemperatureToScreen(Display::SevenSegmend& lcd);
 
 private:
 	int spiRead();
