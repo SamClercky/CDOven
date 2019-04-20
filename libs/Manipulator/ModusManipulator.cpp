@@ -25,8 +25,9 @@ void ModusManipulator::printNewModus(Utils::Modus modus, int masterPin) {
 	rc->writeToScreen(static_cast<uint8_t>(Utils::ModusHelper::getByte(modus)));
 }
 
-void ModusManipulator::printFromInt(int data, int masterPin) {
-	printNewModus(static_cast<Utils::Modus>(data), masterPin);
+void ModusManipulator::printFromInt(int data, int masterPin, int bleInput) {
+	int modus = (bleInput != -1) ? bleInput : data;
+	printNewModus(static_cast<Utils::Modus>(modus), masterPin);
 }
 
 } /* namespace Manipulator */

@@ -37,13 +37,34 @@ void setup() {
 }
 
 void loop() {
+	// check Serial
+	String cmds = Serial.readString() + ";";
+
+	// serialize ble and override everything else
+	// init ble
+	int bleModus = -1;
+	int bleTemps = -1;
+	// get cmds
+	while (cmds.indexOf(';') != -1) {
+		String cmd = cmds.substring(0, cmds.indexOf(':'));
+		int value = cmds.substring(cmds.indexOf(':') + 1, cmds.indexOf(';')).toInt();
+		if (cmd == "setTemp") {
+			bleTemps = value;
+		} else if (cmd == "setModus") {
+			bleModus = value;
+		}
+		cmds = cmds.substring(cmds.indexOf(';') + 1);
+		Serial.println(bleTemps);
+		Serial.println(bleModus);
+	}
+
 	// refresh data and send to appropriate screen
 	temp.writeTemperatureToScreen(ss);
-	mm.printFromInt(static_cast<int>(mc.readData()));
+	mm.printFromInt(static_cast<int>(mc.readData()), bleModus);
 	//mm.printNewModus(Utils::Modus::HeteLucht); // needs to come before tm.setTemperature due hidden state!!!
 	unsigned int temps;
 	if (rc.hasPermissionToHeat()) { // kijk of de oven aan staat
-		temps = static_cast<unsigned int>(tempc.readData()) * 5; // gewenste temperatuur uitlezen
+		temps = (bleTemps != -1) ? bleTemps : static_cast<unsigned int>(tempc.readData()) * 5; // gewenste temperatuur uitlezen
 	} else { // zet hem anders automatisch uit
 		temps = 0;
 	}
@@ -60,5 +81,5 @@ void loop() {
 	lcd.refreshScreen();
 	ss.refreshScreen();
 
-	Serial.println("End loop");
+	//Serial.println("End loop");
 }
