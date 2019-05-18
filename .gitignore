@@ -1,3 +1,6 @@
-spec.d
+.vscode
+.cproject
 Release
-
+spec.d
+.settings
+.project
