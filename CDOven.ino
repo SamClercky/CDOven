@@ -42,28 +42,28 @@ void loop() {
 	int bleModus = -1;
 	int bleTemps = -1;
 
-	if (Serial.available()) {
-		char c = Serial.read();
-
-		if (c == '\n') {
-			Serial.println(cmds);
-
-			if (cmds.substring(0, 4) == "setT") {
-				bleTemps = cmds.substring(5, cmds.length()).toInt();
-			}
-
-			if (cmds.substring(0, 4) == "setM") {
-				bleModus = cmds.substring(5, cmds.length()).toInt();
-			}
-
-			Serial.println(bleTemps);
-			Serial.println(bleModus);
-
-			cmds = "";
-		} else {
-			cmds += c;
-		}
-	}
+//	if (Serial.available()) {
+//		char c = Serial.read();
+//
+//		if (c == '\n') {
+//			Serial.println(cmds);
+//
+//			if (cmds.substring(0, 4) == "setT") {
+//				bleTemps = cmds.substring(5, cmds.length()).toInt();
+//			}
+//
+//			if (cmds.substring(0, 4) == "setM") {
+//				bleModus = cmds.substring(5, cmds.length()).toInt();
+//			}
+//
+//			Serial.println(bleTemps);
+//			Serial.println(bleModus);
+//
+//			cmds = "";
+//		} else {
+//			cmds += c;
+//		}
+//	}
 
 	// refresh data and send to appropriate screen
 	temp.writeTemperatureToScreen(ss);
